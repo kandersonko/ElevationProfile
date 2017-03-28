@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+  <title>Elevation Profile: Create Features</title>
+  <link rel="stylesheet" href="https://js.arcgis.com/3.20/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
+  <link rel="stylesheet" href="css/app.css">
+
+  <!-- Scripts -->
+  <script type="text/javascript">
+    var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+    var dojoConfig = {
+      async: true,
+      parseOnLoad: true,
+      packages: [{
+        name: "application",
+        location: package_path + '/js'
+      }, {
+        name: "config",
+        location: package_path + '/config'
+      }, {
+        name: "arcgis_templates",
+        location: package_path + '/..'
+      }]
+    };
+    // Have to handle a locale parameter before dojo is loaded
+    if (location.search.match(/locale=([\w\-]+)/)) {
+      dojoConfig.locale = RegExp.$1;
+    }
+  </script>
+  <script src="https://js.arcgis.com/3.20/"></script>
+
+</head>
+<body class="claro">
+<div id="info">
+  <label>Digitize a route:</label>
+  <button id="Polyline" type="button">Polyline</button>
+  <button id="FreehandPolyline" type="button">Freehand Polyline</button>
+  <label>Select unit measure:</label>
+  <select id="unitsSelect">
+    <option value="esriMiles">Miles</option>
+    <option value="esriKilometers">Kilometers</option>
+    <option value="esriMeters">Meters</option>
+    <option value="esriNauticalMiles">Nautical Miles</option>
+    <option value="esriYards">Yards</option>
+    <option value="esriFeet">Feet</option>
+  </select>
+</div>
+<div id="mainContainer" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline', gutters:true" style="width:100%;height:100%">
+  <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="height:100%"></div>
+  <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom'" style="background-color: #666;">
+    <div id="profileChartNode"></div>
+  </div>
+</div>
+
+<!-- App Scripts -->
+<script src="js/app.js"></script>
+</body>
+</html>
