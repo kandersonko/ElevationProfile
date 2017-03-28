@@ -22,10 +22,6 @@ require([
   });
   map.on("load", init);
 
-  function init() {
-
-  }
-
   var chartOptions = {
     titleFontColor: "#ffffff",
     axisFontColor: "#ffffff",
@@ -51,9 +47,28 @@ require([
   var bicycleLayer= new FeatureLayer(serviceUrl, bicycleLayerOptions);
   map.addLayer(bicycleLayer);
 
-  var layerIds = map.graphicsLayerIds;
-  array.forEach(layerIds, function(id) {
-    var l = map.getLayer(id);
-    console.log("layer: ", id, l);
-  });
+
+  function init() {
+    var urlParams = getJsonFromUrl();
+    console.log("appUrl: ", urlParams);
+    var layerIds = map.graphicsLayerIds;
+    array.forEach(layerIds, function(id) {
+      var l = map.getLayer(id);
+      console.log("layer: ", id, l);
+      console.log("layer graphics: ", l.graphics.length);
+
+    });
+    console.log("graphics: ", map.graphics);
+
+  }
+
+  function getJsonFromUrl() {
+    var query = location.search.substr(1);
+    var result = {};
+    query.split("&").forEach(function(part) {
+      var item = part.split("=");
+      result[item[0]] = decodeURIComponent(item[1]);
+    });
+    return result;
+  }
 });
