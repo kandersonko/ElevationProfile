@@ -3,6 +3,8 @@ require([
   "esri/dijit/ElevationProfile",
   "esri/units",
   "esri/layers/FeatureLayer",
+  "esri/tasks/query",
+  "esri/tasks/QueryTask",
   "dojo/_base/array",
   "dojo/dom",
   "dojo/on",
@@ -11,6 +13,8 @@ require([
              ElevationsProfileWidget,
              Units,
              FeatureLayer,
+             Query,
+             QueryTask,
              array,
              dom,
              on
@@ -54,12 +58,28 @@ require([
     var layerIds = map.graphicsLayerIds;
     array.forEach(layerIds, function(id) {
       var l = map.getLayer(id);
-      console.log("layer: ", id, l);
-      console.log("layer graphics: ", l.graphics.length);
 
     });
-    console.log("graphics: ", map.graphics);
 
+
+    var query = new Query();
+    var queryTask = new QueryTask(serviceUrl);
+    query.objectIds = [0, 1, 2, 3, 4, 5];
+    var id = parseInt(urlParams.OBJECTID);
+    query.objectIds = [id];
+    query.multipatchOption = "xyFootprint";
+    query.outFields = ["*"];
+    query.returnGeometry = true;
+    queryTask.execute(query);
+    queryTask.on("complete", function(resp){
+      console.log("resp: ", resp);
+      var graphic = resp.featureSet.features[0];
+      console.log("graphic: ", graphic);
+      elevationProfile.set("profileGeometry", graphic.geometry);
+    });
+    queryTask.on("error", function(error){
+      console.log("error: ", error);
+    })
   }
 
   function getJsonFromUrl() {
