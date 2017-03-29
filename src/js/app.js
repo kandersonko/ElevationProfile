@@ -5,6 +5,7 @@ require([
   "esri/layers/FeatureLayer",
   "esri/tasks/query",
   "esri/tasks/QueryTask",
+  "esri/dijit/Search",
   "dojo/_base/array",
   "dojo/dom",
   "dojo/on",
@@ -15,10 +16,10 @@ require([
              FeatureLayer,
              Query,
              QueryTask,
+             Search,
              array,
              dom,
-             on
-) {
+             on) {
   var map = new Map("map", {
     basemap: "streets",
     center: [-116.678, 48.097],
@@ -48,44 +49,68 @@ require([
     mode: FeatureLayer.MODE_SNAPSHOT,
     outFields: ["*"]
   };
-  var bicycleLayer= new FeatureLayer(serviceUrl, bicycleLayerOptions);
+  var bicycleLayer = new FeatureLayer(serviceUrl, bicycleLayerOptions);
   map.addLayer(bicycleLayer);
 
 
   function init() {
     var urlParams = getJsonFromUrl();
-    console.log("appUrl: ", urlParams);
-    var layerIds = map.graphicsLayerIds;
-    array.forEach(layerIds, function(id) {
-      var l = map.getLayer(id);
-
-    });
-
 
     var query = new Query();
     var queryTask = new QueryTask(serviceUrl);
-    query.objectIds = [0, 1, 2, 3, 4, 5];
-    var id = parseInt(urlParams.OBJECTID);
+    // query.objectIds = [1, 2, 3, 4, 8, 9];
+    // var id = parseInt(urlParams.OBJECTID);
+    var id = urlParams.OBJECTID;
     query.objectIds = [id];
     query.multipatchOption = "xyFootprint";
     query.outFields = ["*"];
     query.returnGeometry = true;
     queryTask.execute(query);
-    queryTask.on("complete", function(resp){
-      console.log("resp: ", resp);
-      var graphic = resp.featureSet.features[0];
-      console.log("graphic: ", graphic);
-      elevationProfile.set("profileGeometry", graphic.geometry);
+
+    // highlight the selected feature and zoom to that feature
+
+
+    // wait for the event to complete
+
+    // queryTask.on("complete", function(resp){
+    //   console.log("resp: ", resp);
+    //   var graphic = resp.featureSet.features[0];
+    //   console.log("graphic: ", graphic);
+    //   elevationProfile.set("profileGeometry", graphic.geometry);
+    //   // map.centerAndZoom();
+    // });
+    // queryTask.on("error", function(error){
+    //   console.log("error: ", error);
+    // });
+
+    var search = new Search({
+      map: map,
+      visible: false,
+      enableHighlight: true,
+      sources: [
+        {
+          featureLayer: bicycleLayer,
+          outFields: ["*"],
+          exactMatch: false,
+          searchFields: ["OBJECTID"]
+        }
+      ]
     });
-    queryTask.on("error", function(error){
-      console.log("error: ", error);
-    })
+
+    search.startup();
+    search.search(id).then(function (resp) {
+      console.log("resp:", resp);
+      var feauture = resp[0][0].feature;
+      console.log("graphic: ", feauture);
+      elevationProfile.set("profileGeometry", feauture.geometry);
+    });
+
   }
 
   function getJsonFromUrl() {
     var query = location.search.substr(1);
     var result = {};
-    query.split("&").forEach(function(part) {
+    query.split("&").forEach(function (part) {
       var item = part.split("=");
       result[item[0]] = decodeURIComponent(item[1]);
     });
