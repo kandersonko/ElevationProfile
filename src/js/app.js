@@ -55,7 +55,7 @@ require([
 
   function init() {
     var urlParams = getJsonFromUrl();
-    // OBJECTID: [1, 2, 3, 4, 8, 9];
+    // OBJECTID : [1, 2, 3, 4, 8, 9];
     var id = urlParams.OBJECTID;
 
     var search = new Search({
@@ -78,8 +78,6 @@ require([
       var feauture = resp[0][0].feature;
       console.log("graphic: ", feauture);
       elevationProfile.set("profileGeometry", feauture.geometry);
-    }).catch(function(error){
-      console.log("error: ", error);
     });
 
   }
