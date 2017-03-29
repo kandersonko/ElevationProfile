@@ -74,9 +74,7 @@ require([
 
     search.startup();
     search.search(id).then(function (resp) {
-      console.log("resp:", resp);
       var feauture = resp[0][0].feature;
-      console.log("graphic: ", feauture);
       elevationProfile.set("profileGeometry", feauture.geometry);
     });
 
