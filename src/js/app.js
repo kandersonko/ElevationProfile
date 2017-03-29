@@ -55,33 +55,8 @@ require([
 
   function init() {
     var urlParams = getJsonFromUrl();
-
-    var query = new Query();
-    var queryTask = new QueryTask(serviceUrl);
-    // query.objectIds = [1, 2, 3, 4, 8, 9];
-    // var id = parseInt(urlParams.OBJECTID);
+    // OBJECTID: [1, 2, 3, 4, 8, 9];
     var id = urlParams.OBJECTID;
-    query.objectIds = [id];
-    query.multipatchOption = "xyFootprint";
-    query.outFields = ["*"];
-    query.returnGeometry = true;
-    queryTask.execute(query);
-
-    // highlight the selected feature and zoom to that feature
-
-
-    // wait for the event to complete
-
-    // queryTask.on("complete", function(resp){
-    //   console.log("resp: ", resp);
-    //   var graphic = resp.featureSet.features[0];
-    //   console.log("graphic: ", graphic);
-    //   elevationProfile.set("profileGeometry", graphic.geometry);
-    //   // map.centerAndZoom();
-    // });
-    // queryTask.on("error", function(error){
-    //   console.log("error: ", error);
-    // });
 
     var search = new Search({
       map: map,
@@ -103,6 +78,8 @@ require([
       var feauture = resp[0][0].feature;
       console.log("graphic: ", feauture);
       elevationProfile.set("profileGeometry", feauture.geometry);
+    }).catch(function(error){
+      console.log("error: ", error);
     });
 
   }
