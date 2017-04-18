@@ -8,6 +8,7 @@ require([
   "esri/Color",
   "esri/geometry/Polyline",
   "esri/graphic",
+  "esri/urlUtils",
   "dojo/dom",
   "dojo/domReady!"
 ], function (Map,
@@ -19,6 +20,7 @@ require([
              Color,
              Polyline,
              Graphic,
+             urlUtils,
              dom) {
   var map = new Map("map", {
     basemap: "streets",
@@ -51,10 +53,16 @@ require([
   };
   var bicycleLayer = new FeatureLayer(serviceUrl, bicycleLayerOptions);
   map.addLayer(bicycleLayer);
+  // console.log("bicycleLayer: ", bicycleLayer);
 
+  map.on("zoom", function(event){
+    console.log("map zoom: ", map.getZoom());
+    console.log("map scale: ", map.getScale());
+  });
 
   function init() {
     var urlParams = getJsonFromUrl();
+    console.log("urlParams: ", urlParams);
     // OBJECTID : [1, 2, 3, 4, 8, 9];
     // rgb(230,0,0)
     var id = urlParams.OBJECTID;
@@ -66,8 +74,8 @@ require([
       8: {color: new Color("#38A800"), width: 14},
       9: {color: new Color("#E69800"), width: 6}
     };
-    console.log("lines: ", lines);
-    console.log("current line: ", lines[id], lines[id].color, lines[id].width);
+    // console.log("lines: ", lines);
+    // console.log("current line: ", lines[id], lines[id].color, lines[id].width);
     var search = new Search({
       map: map,
       visible: false,
@@ -76,7 +84,6 @@ require([
       enableInfoWindow: false,
       infoTemplate: null,
       // highlightSymbol: new SimpleLineSymbol().setColor(lines[id].color).setWidth(14),
-      zoomScale: 2,
       sources: [
         {
           featureLayer: bicycleLayer,
@@ -92,16 +99,21 @@ require([
     var selectionSymbol = new SimpleLineSymbol().setColor(lines[id].color).setWidth(lines[id].width);
     // bicycleLayer.setSelectionSymbol(selectionSymbol);
 
+
     search.startup();
     // console.log("search: ", search);
     search.search(id).then(function (resp) {
-      console.log("resp: ", resp);
+      // console.log("resp: ", resp);
       var feature = resp[0][0].feature;
       elevationProfile.set("profileGeometry", feature.geometry);
       var polyline = new Polyline(feature.geometry);
       var graphic = new Graphic(polyline, selectionSymbol);
       map.graphics.add(graphic);
-      console.log("map: ", map);
+      map.setZoom(10);
+      // map.setLevel(10);
+      // console.log("graphic: ", graphic);
+      // map.setScale(288895.277144);
+      // map.centerAt(graphic);
     });
 
   }

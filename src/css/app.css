@@ -18,12 +18,12 @@ select {
 #info {
   min-height: 100px;
   min-width: 200px;
-  right: 5px;
-  top: 5px;
-  margin: 5px;
+  right: 15px;
+  top: 15px;
+  margin: 15px;
   padding: 10px;
   position: absolute;
-  width: 10%;
+  width: 20%;
   z-index: 40;
   border: solid 2px #666;
   border-radius: 4px;
@@ -33,5 +33,19 @@ select {
   padding: 0px;
 }
 
+#elevationProfile {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 40;
+  width: 50%;
+  height: 30%;
+  padding: 5px;
+  -moz-box-shadow: 0 0 5px #888;
+  -webkit-box-shadow: 0 0 5px #888;
+  box-shadow: 0 0 5px #888;
+}
+
 #profileChartNode {
+
 }
