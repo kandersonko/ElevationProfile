@@ -95,8 +95,8 @@ table tr {
   border:0.06em solid #000;
   border-bottom:0;
   font:bold 0.88em/2em arial,geneva,helvetica,sans-serif;
-  color:#000;
-  background-color:#ccc;
+  /*color:#000;*/
+  /*background-color:#ccc;*/
 
   /* CSS 3 elements */
   webkit-border-top-right-radius:0.50em;
@@ -112,6 +112,21 @@ table tr {
   color:#fff;
   text-decoration:none;
   height: 100%;
+}
+
+.selected-link {
+  background:rebeccapurple;
+  color:#fff;
+  text-decoration:none;
+  height: 100%;
+}
+
+#tab-east-west {
+  overflow: auto;
+}
+
+#tab-west-east {
+  overflow: auto;
 }
 
 
