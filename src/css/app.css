@@ -34,6 +34,11 @@ table tr {
   border-radius: 4px;
   background-color: #666;
 }
+
+#main-container {
+  height: 100%;
+}
+
 #map {
   position: absolute;
   top: 0px;
@@ -41,6 +46,8 @@ table tr {
   bottom: 0px;
   padding: 0px;
   margin: 0px;
+  height: 100%;
+  width: 70%;
 }
 
 #tabs {
@@ -52,6 +59,8 @@ table tr {
   margin: 0px;
   color: ghostwhite;
   font-family: "Times New Roman";
+  width: 30%;
+  background-color: rebeccapurple;
 }
 
 #tabs-header {
@@ -70,6 +79,7 @@ table tr {
 }
 
 #elevationProfile {
+  background-color: #666;
   position: absolute;
   bottom: 10px;
   left: 10px;
