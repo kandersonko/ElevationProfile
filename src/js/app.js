@@ -114,7 +114,6 @@ require([
     navigationQuery.where = fieldID + id + "'";
     navigationQueryTask.execute(navigationQuery);
     navigationQueryTask.on("complete", function (data) {
-      console.log("data: ", data);
       var features = data.featureSet.features;
       if (serviceUrl === url) {
         topic.publish("ew:data-loaded", features);
@@ -131,7 +130,7 @@ require([
   function navigationDirections(features, tabDom) {
 
       var table = "<table cellspacing='0' cellpadding='10'><thead><tr>" +
-        "<th>Images</th><th>Directions</th></tr></thead>";
+        "<th></th><th>Directions</th></tr></thead>";
       table += "<tbody>";
       features.forEach(function (feature) {
         table += "<tr><td><img style='display:block;' width='50px' height='50px' src='" + feature.attributes.Image + "'/></td>" +
@@ -146,7 +145,6 @@ require([
   function init() {
     var urlParams = getJsonFromUrl();
     // OBJECTID : [1, 2, 3, 4, 8, 9];
-    console.log("url parameters: ", urlParams);
     var id = urlParams.OBJECTID;
     var zoom = (urlParams.ZOOM) ? parseInt(urlParams.ZOOM, 10) : 11;
     var lines = {
