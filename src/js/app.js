@@ -7,6 +7,7 @@ require([
   "esri/symbols/SimpleLineSymbol",
   "esri/Color",
   "esri/geometry/Polyline",
+  "esri/geometry/Point",
   "esri/tasks/query",
   "esri/tasks/QueryTask",
   "esri/graphic",
@@ -23,6 +24,7 @@ require([
              SimpleLineSymbol,
              Color,
              Polyline,
+             Point,
              Query,
              QueryTask,
              Graphic,
@@ -99,52 +101,6 @@ require([
     navigationDirections(features, "tab-west-east");
   });
 
-  // topic.subscribe(serviceUrlEventName, function(previous, current){
-  // console.log("previous: ", previous);
-  // console.log("current: ", current);
-  // var previousDom = dom.byId(previous);
-  // var currentDom = dom.byId(current);
-  // if(previousDom !== null) {
-  //   previousDom.style.display = "none";
-  // }
-  // if(currentDom !== null) {
-  //   currentDom.style.display = "block";
-  // }
-  // });
-
-
-  // function navigationDirections(serviceUrl, id){
-  //   var url = "http://services.arcgis.com/WLhB60Nqwp4NnHz3/arcgis/rest/services/Navigation_EW/FeatureServer/0";
-  //   var tableDom = (serviceUrl === url) ? "tab-east-west" : "tab-west-east";
-  //   var navigationQueryTask = new QueryTask(serviceUrl);
-  //   var navigationQuery = new Query();
-  //   navigationQuery.outFields = ["*"];
-  //   navigationQuery.returnGeometry = false;
-  //   navigationQuery.multipatchOption = "xyFootprint";
-  //   navigationQuery.objectIds = [id];
-  //   // navigationQuery.where = "OBJECTID = '" + id + "'";
-  //   navigationQueryTask.on("complete", function (data) {
-  //     console.log("data: ", data);
-  //
-  //     var features = data.featureSet.features;
-  //     var table = "<table cellspacing='0' cellpadding='10'><thead><tr>" +
-  //       "<th>Images</th><th>Directions</th></tr></thead>";
-  //     table += "<tbody>";
-  //     features.forEach(function (feature) {
-  //       table += "<tr><td><img style='display:block;' width='50px' height='50px' src='" + feature.attributes.Image + "'/></td>" +
-  //         "<td>" + feature.attributes.Directions + "</td></tr>";
-  //     });
-  //
-  //     table += "</tbody></table>";
-  //
-  //     dom.byId(tableDom).innerHTML = table;
-  //   });
-  //   navigationQueryTask.on("error", function (error) {
-  //     console.log("error: ", error);
-  //   });
-  //   navigationQueryTask.execute(navigationQuery);
-  // }
-
   function navigationQuery(serviceUrl, id) {
     var url = "http://services.arcgis.com/WLhB60Nqwp4NnHz3/arcgis/rest/services/Navigation_EW/FeatureServer/0";
     var fieldID = (serviceUrl === url) ? "OBJECTID = '" : "ID = '";
@@ -190,7 +146,9 @@ require([
   function init() {
     var urlParams = getJsonFromUrl();
     // OBJECTID : [1, 2, 3, 4, 8, 9];
+    console.log("url parameters: ", urlParams);
     var id = urlParams.OBJECTID;
+    var zoom = (urlParams.ZOOM) ? parseInt(urlParams.ZOOM, 10) : 11;
     var lines = {
       1: {color: new Color("#005CE6"), width: 12},
       2: {color: new Color("#005CE6"), width: 12},
@@ -229,7 +187,9 @@ require([
       var polyline = new Polyline(feature.geometry);
       var graphic = new Graphic(polyline, selectionSymbol);
       map.graphics.add(graphic);
-      map.setZoom(10);
+      var pt = feature.geometry.getExtent();
+      var pt2 = pt.getCenter();
+      map.centerAndZoom(pt2, zoom);
     });
 
   }
