@@ -112,9 +112,6 @@ table tr {
   border:0.06em solid #000;
   border-bottom:0;
   font:bold 0.88em/2em arial,geneva,helvetica,sans-serif;
-  /*color:#000;*/
-  /*background-color:#ccc;*/
-
   /* CSS 3 elements */
   webkit-border-top-right-radius:0.50em;
   -webkit-border-top-left-radius:0.50em;
