@@ -61,7 +61,7 @@ table tr {
   font-family: "Times New Roman";
   width: 30%;
   height: 100%;
-  background-color: rebeccapurple;
+  background-color: rgb(72, 74, 76);
 }
 
 #tabs-header {
@@ -85,12 +85,12 @@ table tr {
   bottom: 0px;
   right: 0px;
   z-index: 40;
-  width: 69.4%;
+  width: 69.2%;
   height: 29%;
   padding: 5px;
-  -moz-box-shadow: 0 0 5px #888;
-  -webkit-box-shadow: 0 0 5px #888;
-  box-shadow: 0 0 5px #888;
+  -moz-box-shadow: 0 0 2px #888;
+  -webkit-box-shadow: 0 0 2px #888;
+  box-shadow: 0 0 2px #888;
 }
 
 .tab-list {
@@ -122,15 +122,8 @@ table tr {
   border-top-left-radius:0.50em;
 }
 
-.tab-list li a:hover {
-  background:rebeccapurple;
-  color:#fff;
-  text-decoration:none;
-  height: 100%;
-}
-
 .selected-link {
-  background:rebeccapurple;
+  background: rgb(72, 74, 76);
   color:#fff;
   text-decoration:none;
   height: 100%;

@@ -3,6 +3,7 @@ require([
   "esri/dijit/ElevationProfile",
   "esri/units",
   "esri/layers/FeatureLayer",
+  "esri/layers/GraphicsLayer",
   "esri/dijit/Search",
   "esri/symbols/SimpleLineSymbol",
   "esri/Color",
@@ -20,6 +21,7 @@ require([
              ElevationsProfileWidget,
              Units,
              FeatureLayer,
+             GraphicsLayer,
              Search,
              SimpleLineSymbol,
              Color,
@@ -153,6 +155,7 @@ require([
     var urlParams = getJsonFromUrl();
     // OBJECTID : [1, 2, 3, 4, 8, 9];
     var id = urlParams.OBJECTID;
+    var opacity = (urlParams.OPACITY) ? urlParams.OPACITY : 0.5;
     var zoom = (urlParams.ZOOM) ? urlParams.ZOOM : null;
     var lines = {
       1: {color: new Color("#005CE6"), width: 12},
@@ -191,7 +194,10 @@ require([
       elevationProfile.set("profileGeometry", feature.geometry);
       var polyline = new Polyline(feature.geometry);
       var graphic = new Graphic(polyline, selectionSymbol);
-      map.graphics.add(graphic);
+      var graphicLayer = new GraphicsLayer();
+      graphicLayer.setOpacity(opacity);
+      graphicLayer.add(graphic);
+      map.addLayer(graphicLayer);
       var pt = feature.geometry.getExtent();
       var pt2 = pt.getCenter();
       map.centerAndZoom(pt2, zoom);
