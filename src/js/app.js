@@ -45,10 +45,18 @@ require([
     busyIndicatorBackgroundColor: "#666"
   };
 
+  // elevation profile task url sample:
+  // http://elevation.arcgis.com/arcgis/rest/services/Tools/ElevationSync/GPServer/Profile/execute?f=json&InputLineFeatures=<line feature>&ProfileIDField=OID&DEMResolution=FINEST&MaximumSampleDistance=13&MaximumSampleDistanceUnits=Meters&returnZ=true&returnM=true
+
+  var elevationProfileTaskUrl = "https://elevation.arcgis.com/arcgis/rest/services/Tools/ElevationSync/GPServer";
+
+  // old elevation profile task url:
+  // "https://elevation.arcgis.com/arcgis/rest/services/Tools/ElevationSync/GPServer"
+
   var profileParams = {
     map: map,
     chartOptions: chartOptions,
-    profileTaskUrl: "https://elevation.arcgis.com/arcgis/rest/services/Tools/ElevationSync/GPServer",
+    profileTaskUrl: elevationProfileTaskUrl,
     scalebarUnits: Units.MILES
   };
 
@@ -61,7 +69,6 @@ require([
     outFields: ["*"]
   };
   var bicycleLayer = new FeatureLayer(bicycleServiceUrl, bicycleLayerOptions);
-
 
   var navigationWEServiceUrl = "http://services.arcgis.com/WLhB60Nqwp4NnHz3/arcgis/rest/services/Navigation_WE/FeatureServer/0";
   var navigationEWServiceUrl = "http://services.arcgis.com/WLhB60Nqwp4NnHz3/arcgis/rest/services/Navigation_EW/FeatureServer/0";
@@ -146,7 +153,7 @@ require([
     var urlParams = getJsonFromUrl();
     // OBJECTID : [1, 2, 3, 4, 8, 9];
     var id = urlParams.OBJECTID;
-    var zoom = (urlParams.ZOOM) ? parseInt(urlParams.ZOOM, 10) : 11;
+    var zoom = (urlParams.ZOOM) ? urlParams.ZOOM : null;
     var lines = {
       1: {color: new Color("#005CE6"), width: 12},
       2: {color: new Color("#005CE6"), width: 12},

@@ -37,16 +37,16 @@ table tr {
 
 #main-container {
   height: 100%;
+  width: 100%;
 }
 
 #map {
   position: absolute;
   top: 0px;
   right: 0px;
-  bottom: 0px;
   padding: 0px;
   margin: 0px;
-  height: 100%;
+  height: 70%;
   width: 70%;
 }
 
@@ -60,6 +60,7 @@ table tr {
   color: ghostwhite;
   font-family: "Times New Roman";
   width: 30%;
+  height: 100%;
   background-color: rebeccapurple;
 }
 
@@ -81,11 +82,11 @@ table tr {
 #elevationProfile {
   background-color: #666;
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 0px;
+  right: 0px;
   z-index: 40;
-  width: 85%;
-  height: 30%;
+  width: 69.4%;
+  height: 29%;
   padding: 5px;
   -moz-box-shadow: 0 0 5px #888;
   -webkit-box-shadow: 0 0 5px #888;
