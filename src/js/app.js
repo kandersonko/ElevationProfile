@@ -86,20 +86,32 @@ require([
 
   map.addLayer(bicycleLayer);
 
-  on(dom.byId("EW"), 'click', function(){
+  on(dom.byId("EW"), 'click', function(e){
     // topic.publish(serviceUrlEventName, "tab-east-west", "tab-east-east");
     tabEwDom.style.display = 'block';
     tabWeDom.style.display = 'none';
     domClass.add("EW", 'selected-link');
     domClass.remove("WE", "selected-link");
+    e.preventDefault();
   });
 
-  on(dom.byId("WE"), 'click', function(){
+  on(dom.byId("WE"), 'click', function(e){
     // topic.publish(serviceUrlEventName, "tab-west-east", "tab-east-west");
     tabEwDom.style.display = 'none';
     tabWeDom.style.display = 'block';
     domClass.remove("EW", "selected-link");
     domClass.add("WE", "selected-link");
+    e.preventDefault();
+  });
+
+  on(dom.byId("directions-img"), 'click', function(e){
+    dom.byId("tabs").style.display = "block";
+    e.preventDefault();
+  });
+
+  on(dom.byId("close-btn"), 'click', function(e){
+    dom.byId("tabs").style.display = "none";
+    e.preventDefault();
   });
 
   topic.subscribe("ew:data-loaded", function (features) {
@@ -185,23 +197,28 @@ require([
 
     var selectionSymbol = new SimpleLineSymbol().setColor(lines[id].color).setWidth(lines[id].width);
 
-    navigationQuery(navigationEWServiceUrl, id);
-    navigationQuery(navigationWEServiceUrl, id);
-
     search.startup();
     search.search(id).then(function (resp) {
+
+
       var feature = resp[0][0].feature;
-      elevationProfile.set("profileGeometry", feature.geometry);
       var polyline = new Polyline(feature.geometry);
+      elevationProfile.set("profileGeometry", polyline);
       var graphic = new Graphic(polyline, selectionSymbol);
       var graphicLayer = new GraphicsLayer();
       graphicLayer.setOpacity(opacity);
       graphicLayer.add(graphic);
       map.addLayer(graphicLayer);
-      var pt = feature.geometry.getExtent();
-      var pt2 = pt.getCenter();
-      map.centerAndZoom(pt2, zoom);
+      var featureExtent = feature.geometry.getExtent();
+      var point = featureExtent.getCenter();
+      // map.setZoom(zoom);
+      // map.centerAt(point);
+      // map.setExtent(featureExtent, true);
+      map.centerAndZoom(point, zoom);
     });
+
+    navigationQuery(navigationEWServiceUrl, id);
+    navigationQuery(navigationWEServiceUrl, id);
 
   }
 
