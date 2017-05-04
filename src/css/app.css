@@ -1,8 +1,9 @@
 html, body {
   height: 100%;
   width: 100%;
-  margin: 0;
-  padding: 0;
+  margin-bottom: 50px;
+  /*margin: 0;*/
+  /*padding: 0;*/
   overflow: hidden;
 }
 label {
@@ -244,4 +245,28 @@ table tr {
     background-size: 100% 100%;
   }
 
+}
+
+@media (min-height: 480px) and (max-height: 700px) {
+  #map {
+    height: 60%;
+  }
+  #tabs {
+    height: 100%;
+  }
+  #elevationProfile {
+    height: 40%;
+  }
+}
+
+@media (max-height: 480px) {
+  #map {
+    height: 50%;
+  }
+  #tabs {
+    height: 100%;
+  }
+  #elevationProfile {
+    height: 50%;
+  }
 }
