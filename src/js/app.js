@@ -16,6 +16,7 @@ require([
   "dojo/on",
   "dojo/dom",
   "dojo/dom-class",
+  "dojo/query",
   "dojo/domReady!"
 ], function (Map,
              ElevationsProfileWidget,
@@ -33,7 +34,8 @@ require([
              topic,
              on,
              dom,
-             domClass) {
+             domClass,
+             query) {
   var map = new Map("map", {
     basemap: "streets",
     center: [-116.678, 48.097],
@@ -107,8 +109,20 @@ require([
     e.preventDefault();
   });
 
-  on(dom.byId("close-btn"), 'click', function(e){
+  on(dom.byId("directions-close-btn"), 'click', function (e) {
     dom.byId("tabs").style.display = "none";
+    e.preventDefault();
+  });
+
+  on(dom.byId("elevation-img"), 'click', function (e) {
+    dom.byId("elevationProfile").style.visibility = "visible";
+    query("div.esriElevationProfileInfoNode").style("opacity", 1);
+    e.preventDefault();
+  });
+
+  on(dom.byId("elevation-close-btn"), 'click', function (e) {
+    dom.byId("elevationProfile").style.visibility = "hidden";
+    query("div.esriElevationProfileInfoNode").style("opacity", 0);
     e.preventDefault();
   });
 
