@@ -1,3 +1,8 @@
+/*
+  Author: Koffi Anderson Koffi
+  Email: kandersonko@gmail.com
+  Date: 05/05/2017
+ */
 require([
   "esri/map",
   "esri/dijit/ElevationProfile",
