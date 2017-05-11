@@ -240,7 +240,7 @@ table tr {
     width: 95%;
     height: 100%;
     background-color: rgb(72, 74, 76);
-    z-index: 40;
+    z-index: 50;
   }
 
   #elevationProfile {
@@ -248,10 +248,9 @@ table tr {
     position: absolute;
     bottom: 0px;
     right: 0px;
-    /*z-index: 40;*/
+    z-index: 45;
     width: 100%;
     height: 29%;
-    /*padding: 5px;*/
     -moz-box-shadow: 0 0 2px #888;
     -webkit-box-shadow: 0 0 2px #888;
     box-shadow: 0 0 2px #888;
@@ -288,11 +287,20 @@ table tr {
     height: 100%;
   }
   #elevationProfile {
+    visibility: hidden;
     position: absolute;
     left: 10pt;
     bottom: 15pt;
     width: 80%;
     height: 80%;
+  }
+
+  #dojox_widget_Standby_0{
+    visibility: hidden;
+  }
+  
+  .esriElevationProfileInfoNode {
+    visibility: hidden;
   }
 }
 

@@ -54,13 +54,7 @@ require([
     busyIndicatorBackgroundColor: "#666"
   };
 
-  // elevation profile task url sample:
-  // http://elevation.arcgis.com/arcgis/rest/services/Tools/ElevationSync/GPServer/Profile/execute?f=json&InputLineFeatures=<line feature>&ProfileIDField=OID&DEMResolution=FINEST&MaximumSampleDistance=13&MaximumSampleDistanceUnits=Meters&returnZ=true&returnM=true
-
   var elevationProfileTaskUrl = "https://elevation.arcgis.com/arcgis/rest/services/Tools/ElevationSync/GPServer";
-
-  // old elevation profile task url:
-  // "https://elevation.arcgis.com/arcgis/rest/services/Tools/ElevationSync/GPServer"
 
   var profileParams = {
     map: map,
@@ -79,9 +73,8 @@ require([
   };
   var bicycleLayer = new FeatureLayer(bicycleServiceUrl, bicycleLayerOptions);
 
-  // var navigationWEServiceUrl = "http://services.arcgis.com/WLhB60Nqwp4NnHz3/arcgis/rest/services/Navigation_WE/FeatureServer/0";
   var navigationWEServiceUrl = "http://services.arcgis.com/WLhB60Nqwp4NnHz3/arcgis/rest/services/USBR_10_WE_NavigationSh1_4/FeatureServer/0";
-  // var navigationEWServiceUrl = "http://services.arcgis.com/WLhB60Nqwp4NnHz3/arcgis/rest/services/Navigation_EW/FeatureServer/0";
+
   var navigationEWServiceUrl = "http://services.arcgis.com/WLhB60Nqwp4NnHz3/arcgis/rest/services/USBR_10_EW_NavigationSh2_3/FeatureServer/0";
 
   var tabEwDom = dom.byId('tab-east-west');
@@ -178,6 +171,7 @@ require([
   }
 
   function init() {
+
     var urlParams = getJsonFromUrl();
     // OBJECTID : [1, 2, 3, 4, 8, 9];
     var id = urlParams.OBJECTID;
@@ -213,7 +207,6 @@ require([
 
     search.startup();
     search.search(id).then(function (resp) {
-      console.log("resp: ", resp);
       var feature = resp[0][0].feature;
       var polyline = new Polyline(feature.geometry);
       elevationProfile.set("profileGeometry", polyline);
