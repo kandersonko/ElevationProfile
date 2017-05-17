@@ -73,14 +73,14 @@ require([
   };
   var bicycleLayer = new FeatureLayer(bicycleServiceUrl, bicycleLayerOptions);
 
-  var navigationWEServiceUrl = "http://services.arcgis.com/WLhB60Nqwp4NnHz3/arcgis/rest/services/USBR_10_WE_NavigationSh1_4/FeatureServer/0";
+  var navigationWEServiceUrl = "http://services.arcgis.com/WLhB60Nqwp4NnHz3/arcgis/rest/services/USBR_10_W_to_E_Navigation/FeatureServer/0";
 
-  var navigationEWServiceUrl = "http://services.arcgis.com/WLhB60Nqwp4NnHz3/arcgis/rest/services/USBR_10_EW_NavigationSh2_3/FeatureServer/0";
+  var navigationEWServiceUrl = "http://services.arcgis.com/WLhB60Nqwp4NnHz3/arcgis/rest/services/USBR_10_E_to_W_Navigation/FeatureServer/0";
 
   var tabEwDom = dom.byId('tab-east-west');
   var tabWeDom = dom.byId('tab-west-east');
 
-  tabWeDom.style.display = 'none';
+  tabEwDom.style.display = 'none';
 
   map.on("load", init);
 
